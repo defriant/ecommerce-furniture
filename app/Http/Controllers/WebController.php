@@ -15,24 +15,25 @@ class WebController extends Controller
 {
     public function index()
     {
-        $data = Barang::all();
-        if (!Auth::guest()) {
-            if (Auth::user()->role == 'user') {
-                return view('user.index', compact('data'));
-            }elseif (Auth::user()->role == 'admin') {
-                return redirect('/admin/produk');
-            }elseif (Auth::user()->role == 'owner') {
-                return redirect('/owner');
-            }
-        }
-        return view('user.index', compact('data'));
+        // $data = Barang::all();
+        // if (!Auth::guest()) {
+        //     if (Auth::user()->role == 'user') {
+        //         return view('user.index', compact('data'));
+        //     }elseif (Auth::user()->role == 'admin') {
+        //         return redirect('/admin/produk');
+        //     }elseif (Auth::user()->role == 'owner') {
+        //         return redirect('/owner');
+        //     }
+        // }
+        // return view('user.index', compact('data'));
+        return view('user.index');
     }
-    
+
     public function attempt_login(Request $request)
     {
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             return response()->json(array('success' => true));
-        }else{
+        } else {
             return response()->json(array('success' => false));
         }
     }
@@ -41,9 +42,9 @@ class WebController extends Controller
     {
         if (Auth::user()->role == 'user') {
             return redirect()->back();
-        }elseif (Auth::user()->role == 'admin') {
+        } elseif (Auth::user()->role == 'admin') {
             return redirect('/admin/produk');
-        }elseif (Auth::user()->role == 'owner') {
+        } elseif (Auth::user()->role == 'owner') {
             return redirect('/owner');
         }
     }
@@ -80,7 +81,7 @@ class WebController extends Controller
 
     public function search_produk($id)
     {
-        $data = Barang::where('nama', 'like', "%".$id."%")->get();
+        $data = Barang::where('nama', 'like', "%" . $id . "%")->get();
         return view('user.product_data', compact('data'));
     }
 
@@ -122,18 +123,18 @@ class WebController extends Controller
     public function custom_pesanan_proses(Request $request)
     {
         $random = '';
-        for ($i=0; $i < 4; $i++) { 
-            $angka = random_int(0,9);
+        for ($i = 0; $i < 4; $i++) {
+            $angka = random_int(0, 9);
             $random .= $angka;
         }
         $tgl_sekarang = date("md");
-        $id_pesanan = Auth::user()->id.$tgl_sekarang.$random;
+        $id_pesanan = Auth::user()->id . $tgl_sekarang . $random;
 
         $filenameWithExt = $request->file('foto_contoh_barang')->getClientOriginalName();
         $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
         $extension = $request->file('foto_contoh_barang')->getClientOriginalExtension();
-        $request->file('foto_contoh_barang')->move('user/barang_img/',$filename.'_'.$id_pesanan.'.'.$extension);
-        $gambar = $filename.'_'.$id_pesanan.'.'.$extension;
+        $request->file('foto_contoh_barang')->move('user/barang_img/', $filename . '_' . $id_pesanan . '.' . $extension);
+        $gambar = $filename . '_' . $id_pesanan . '.' . $extension;
 
         $harga = intval(str_replace(',', '', $request->total_harga));
 
@@ -160,7 +161,7 @@ class WebController extends Controller
                 'gambar' => $gambar,
                 'detail_barang' => $request->detail_barang
             ]);
-        }else {
+        } else {
             PesananBarang::create([
                 'pesanan_id' => $id_pesanan,
                 'nama' => $request->nama_barang,
@@ -174,7 +175,7 @@ class WebController extends Controller
                 'detail_barang' => $request->detail_barang
             ]);
         }
-        
+
 
         $options = array(
             'cluster' => 'ap1',
@@ -189,7 +190,7 @@ class WebController extends Controller
         $notif_data = ['pesanan_id' => $id_pesanan];
         $pusher->trigger('admin-channel', 'custom-konfirmasi-pesanan-event', $notif_data);
 
-        return redirect('/pesanan/'.$id_pesanan);
+        return redirect('/pesanan/' . $id_pesanan);
     }
 
     public function view($id)
@@ -231,7 +232,7 @@ class WebController extends Controller
             'jumlah' => $jumlah,
             'total' => $total,
             'gambar' => $data_barang->gambar,
-            'url' => '/produk/'.$id
+            'url' => '/produk/' . $id
         ]);
     }
 
@@ -261,19 +262,19 @@ class WebController extends Controller
             $total = Keranjang::where('user_id', Auth::user()->id)->sum('total');
             return view('user.informasi-pesanan', compact('total'));
         }
-        
+
         return redirect('/');
     }
 
     public function pesanan_proses(Request $request)
     {
         $random = '';
-        for ($i=0; $i < 4; $i++) { 
-            $angka = random_int(0,9);
+        for ($i = 0; $i < 4; $i++) {
+            $angka = random_int(0, 9);
             $random .= $angka;
         }
         $tgl_sekarang = date("md");
-        $id_pesanan = Auth::user()->id.$tgl_sekarang.$random;
+        $id_pesanan = Auth::user()->id . $tgl_sekarang . $random;
 
         $total = Keranjang::where('user_id', Auth::user()->id)->sum('total');
 
@@ -318,7 +319,7 @@ class WebController extends Controller
 
         Keranjang::where('user_id', Auth::user()->id)->delete();
 
-        return redirect('/pesanan/'.$id_pesanan);
+        return redirect('/pesanan/' . $id_pesanan);
     }
 
     public function upload_bukti_pembayaran(Request $request)
@@ -329,8 +330,8 @@ class WebController extends Controller
             $fileNameWithExt = $request->file('bukti_pembayaran')->getClientOriginalName();
             $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
             $extension = $request->file('bukti_pembayaran')->getClientOriginalExtension();
-            $request->file('bukti_pembayaran')->move('user/bukti_pembayaran',$fileName.'_'.$data->id.'.'.$extension);
-            $bukti_pembayaran = $fileName.'_'.$data->id.'.'.$extension;
+            $request->file('bukti_pembayaran')->move('user/bukti_pembayaran', $fileName . '_' . $data->id . '.' . $extension);
+            $bukti_pembayaran = $fileName . '_' . $data->id . '.' . $extension;
 
             Pesanan::where('id', $request->id_pesanan)->update([
                 'status' => 'menunggu_validasi',
@@ -353,7 +354,7 @@ class WebController extends Controller
             if ($data->jenis_pesanan == 'pesanan') {
                 $notif_data = ['pesanan_id' => $request->id_pesanan];
                 $pusher->trigger('admin-channel', 'validasi-pembayaran-event', $notif_data);
-            }elseif ($data->jenis_pesanan == 'custom_pesanan') {
+            } elseif ($data->jenis_pesanan == 'custom_pesanan') {
                 $notif_data = ['pesanan_id' => $request->id_pesanan];
                 $pusher->trigger('admin-channel', 'validasi-pembayaran-custom-event', $notif_data);
             }
@@ -370,7 +371,7 @@ class WebController extends Controller
         $data = Pesanan::find($id);
         if ($data == null) {
             return redirect('/');
-        }else {
+        } else {
             return view('user.detail-pesanan', compact('data'));
         }
     }
@@ -380,7 +381,7 @@ class WebController extends Controller
         $data = Pesanan::find($id);
         if ($data->jenis_pesanan == 'pesanan') {
             return view('user.status-pesanan', compact('data'));
-        }elseif ($data->jenis_pesanan == 'custom_pesanan') {
+        } elseif ($data->jenis_pesanan == 'custom_pesanan') {
             return view('user.status-pesanan-custom', compact('data'));
         }
     }
@@ -418,5 +419,4 @@ class WebController extends Controller
         // }
         // dd($barang);
     }
-
 }
