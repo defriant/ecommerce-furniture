@@ -30,7 +30,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 </head>
 <body>
-
+    {{ asset('') }}
     <div class="header-bot">
         <div class="container">
             <div class="col-md-3 header-left">
