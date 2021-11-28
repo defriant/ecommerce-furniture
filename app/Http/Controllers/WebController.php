@@ -15,19 +15,17 @@ class WebController extends Controller
 {
     public function index()
     {
-        // $data = Barang::all();
-        // if (!Auth::guest()) {
-        //     if (Auth::user()->role == 'user') {
-        //         return view('user.index', compact('data'));
-        //     }elseif (Auth::user()->role == 'admin') {
-        //         return redirect('/admin/produk');
-        //     }elseif (Auth::user()->role == 'owner') {
-        //         return redirect('/owner');
-        //     }
-        // }
-        // return view('user.index', compact('data'));
-        // return view('user.index');
-        echo 'tes';
+        $data = Barang::all();
+        if (!Auth::guest()) {
+            if (Auth::user()->role == 'user') {
+                return view('user.index', compact('data'));
+            } elseif (Auth::user()->role == 'admin') {
+                return redirect('/admin/produk');
+            } elseif (Auth::user()->role == 'owner') {
+                return redirect('/owner');
+            }
+        }
+        return view('user.index', compact('data'));
     }
 
     public function attempt_login(Request $request)
