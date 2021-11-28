@@ -4,7 +4,7 @@
 <title>Ecommerce</title>
 
 <!-- Fontawesome -->
-<link rel="stylesheet" href="{{ asset('FA5PRO-master/css/all.min.css') }}">
+<link rel="stylesheet" href="/FA5PRO-master/css/all.min.css">
 
 <!--  CSRF Token -->
 <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -16,24 +16,24 @@
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
 
 <!-- Vendor style -->
-<link href="{{ asset('user/css/bootstrap.css') }}" rel="stylesheet" type="text/css" media="all" />
-<link href="{{ asset('user/css/jquery-ui.css') }}" rel="stylesheet" type="text/css" media="all" />
-<link href="{{ asset('user/css/pignose.layerslider.css') }}" rel="stylesheet" type="text/css" media="all" />
-<link rel="stylesheet" href="{{ asset('admins/vendor/toastr/toastr.min.css') }}">
-<link rel="stylesheet" href="{{ asset('user/css/flexslider.css') }}" type="text/css" media="screen" />
+<link href="/user/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+<link href="/user/css/jquery-ui.css" rel="stylesheet" type="text/css" media="all" />
+<link href="/user/css/pignose.layerslider.css" rel="stylesheet" type="text/css" media="all" />
+<link rel="stylesheet" href="/admins/vendor/toastr/toastr.min.css">
+<link rel="stylesheet" href="/user/css/flexslider.css" type="text/css" media="screen" />
 <link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
 <link href='//fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,900,900italic,700italic' rel='stylesheet' type='text/css'>
 
 <!-- Main CSS -->
-<link href="{{ asset('user/css/vendor.css') }}" rel="stylesheet" type="text/css" media="all" />
-<link href="{{ asset('user/css/style.css') }}" rel="stylesheet" type="text/css" media="all" />
+<link href="/user/css/vendor.css" rel="stylesheet" type="text/css" media="all" />
+<link href="/user/css/style.css" rel="stylesheet" type="text/css" media="all" />
 
 </head>
 <body>
     <div class="header-bot">
         <div class="container">
             <div class="col-md-3 header-left">
-                <h1><a href="/"><img src="{{ asset('logo/Untitled.png') }}"></a></h1>
+                <h1><a href="/"><img src="/logo/Untitled.png"></a></h1>
             </div>
             <div class="col-md-6 head-middle">
                 @if (Request::is('/') || Request::is('produk/*'))
@@ -77,7 +77,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             @if (Auth::user()->image == null)
                                 <i class="far fa-user"></i>
                             @else
-                                <img src="{{ asset('user/profile_img/'.Auth::user()->image ) }}" class="user_profile">
+                                <img src="/user/profile_img/{{Auth::user()->image}}" class="user_profile">
                             @endif
                         </a>
                         <div id="akun-box" class="akun-box">
@@ -183,32 +183,32 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
     
     <!-- Vendor JS -->
-    <script src="{{ asset('user/js/jquery-2.1.4.min.js') }}"></script>
+    <script src="/user/js/jquery-2.1.4.min.js"></script>
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
-    <script type="text/javascript" src="{{ asset('user/js/jquery-ui.js') }}"></script>
-    <script src="{{ asset('user/js/imagezoom.js') }}"></script>
-    <script src="{{ asset('user/js/jquery.flexslider.js') }}"></script>
-    <script src="{{ asset('user/js/simpleCart.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('user/js/bootstrap-3.1.1.min.js') }}"></script>
-    <script src="{{ asset('user/js/jquery.easing.min.js') }}"></script>
-    <script src="{{ asset('admins/vendor/toastr/toastr.min.js') }}"></script>
+    <script type="text/javascript" src="/user/js/jquery-ui.js"></script>
+    <script src="/user/js/imagezoom.js"></script>
+    <script src="/user/js/jquery.flexslider.js"></script>
+    <script src="/user/js/simpleCart.min.js"></script>
+    <script type="text/javascript" src="/user/js/bootstrap-3.1.1.min.js"></script>
+    <script src="/user/js/jquery.easing.min.js"></script>
+    <script src="/admins/vendor/toastr/toastr.min.js"></script>
 
     <!-- Main JS -->
-    <script src="{{ asset('user/js/main/script.js') }}"></script>
-    <script src="{{ asset('user/js/main/regis.js') }}"></script>
-    <script src="{{ asset('user/js/main/detail-pesanan-script.js') }}"></script>
-    <script src="{{ asset('user/js/main/view-script.js') }}"></script>
-    <script src="{{ asset('user/js/main/index-script.js') }}"></script>
+    <script src="/user/js/main/script.js"></script>
+    <script src="/user/js/main/regis.js"></script>
+    <script src="/user/js/main/detail-pesanan-script.js"></script>
+    <script src="/user/js/main/view-script.js"></script>
+    <script src="/user/js/main/index-script.js"></script>
 
     @if (Request::is('keranjang'))
-        <script src="{{ asset('user/js/main/keranjang-script.js') }}"></script>
+        <script src="/user/js/main/keranjang-script.js"></script>
     @endif
     
     @yield('scripts')
     
     @auth
     <input type="hidden" id="user-id" value="{{ Auth::user()->id }}">
-    <script src="{{ asset('user/js/main/notification-script.js') }}"></script>
+    <script src="/user/js/main/notification-script.js"></script>
     @endauth
 </body>
 </html>
