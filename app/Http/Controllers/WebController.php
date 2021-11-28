@@ -26,7 +26,8 @@ class WebController extends Controller
         //     }
         // }
         // return view('user.index', compact('data'));
-        return view('user.index');
+        // return view('user.index');
+        echo 'tes';
     }
 
     public function attempt_login(Request $request)
